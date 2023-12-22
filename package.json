@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "dev:fe": "cd frontend & yarn dev --host"
+  }
+}
