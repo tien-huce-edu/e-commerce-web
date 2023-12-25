@@ -2,14 +2,14 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
 export default function Login() {
-  const { register, handleSubmit, formState } = useForm()
+  const { handleSubmit } = useForm()
 
   const onSubmit = handleSubmit((data) => {
     console.log(data)
   })
   return (
     <div className='bg-orange'>
-      <div className='max-w-7xl mx-auto px-4'>
+      <div className='container'>
         <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
             <form className='p-10 rounded bg-white shadow-sm' onSubmit={onSubmit}>
@@ -27,6 +27,7 @@ export default function Login() {
                 <input
                   type='password'
                   name='password'
+                  autoComplete='on'
                   className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 focus:shadow-sm rounded-sm'
                   placeholder='Password'
                 />
