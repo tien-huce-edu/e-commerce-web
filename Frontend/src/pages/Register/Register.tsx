@@ -1,95 +1,57 @@
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useMutation } from '@tanstack/react-query'
-import { omit } from 'lodash'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
-import { registerAccount } from 'src/apis/auth.api'
+import { rules } from 'src/utils/rules'
 
-import Input from 'src/components/Input'
-import { ResponseApi } from 'src/types/utils.type'
-import { Schema, schema } from 'src/utils/rules'
-import { isAxiosUnprocessableEntityError } from 'src/utils/utils'
+interface formData {
+  email: string
+  password: string
+  confirm_password: string
+}
 
-type FormData = Schema
-
-const registerSchema = schema.pick(['email', 'password', 'confirm_password']).required()
 export default function Register() {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors }
-  } = useForm<FormData>({
-    resolver: yupResolver(registerSchema)
-  })
-
-  const registerAccountMutation = useMutation({
-    mutationFn: (body: Omit<FormData, 'confirm_password'>) => registerAccount(body)
-  })
-
+  } = useForm<formData>()
   const onSubmit = handleSubmit((data) => {
-    const body = omit(data, ['confirm_password'])
-    registerAccountMutation.mutate(body, {
-      onSuccess: (data) => {
-        console.log(data)
-      },
-      onError: (error) => {
-        if (isAxiosUnprocessableEntityError<ResponseApi<Omit<FormData, 'confim_password'>>>(error)) {
-          const formError = error.response?.data.data
-          if (formError) {
-            Object.keys(formError).forEach((key) => {
-              setError(key as keyof Omit<FormData, 'confirm_password'>, {
-                message: formError[key as keyof Omit<FormData, 'confirm_password'>],
-                type: 'Server'
-              })
-            })
-          }
-          // if (formError?.email) {
-          //   setError('email', { message: formError.email, type: 'Server' })
-          // }
-          // if (formError?.password) {
-          //   setError('password', { message: formError.password, type: 'Server' })
-          // }
-        }
-      }
-    })
+    console.log(data)
   })
-
-  console.log('errors', errors)
-
+  console.log('errors', errors.email)
   return (
     <div className='bg-orange'>
-      <div className='container'>
+      <div className='max-w-7xl mx-auto px-4'>
         <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
             <form className='p-10 rounded bg-white shadow-sm' noValidate onSubmit={onSubmit}>
               <div className='text-2xl'>Đăng ký</div>
-              <Input
-                name='email'
-                register={register}
-                type='email'
-                className='mt-8'
-                errorMessage={errors.email?.message}
-                placeholder='Email'
-              />
-              <Input
-                name='password'
-                register={register}
-                type='password'
-                className='mt-2'
-                errorMessage={errors.password?.message}
-                placeholder='Password'
-                autoComplete='on'
-              />
-              <Input
-                name='confirm_password'
-                register={register}
-                type='password'
-                className='mt-2'
-                errorMessage={errors.confirm_password?.message}
-                placeholder='Confirm Password'
-                autoComplete='on'
-              />
+              <div className='mt-8'>
+                <input
+                  type='email'
+                  className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 focus:shadow-sm rounded-sm'
+                  placeholder='Email'
+                  {...register('email', rules.email)}
+                />
+                <div className='pl-2 mt-1 text-red-600 min-h-[1.25rem] text-sm'>{errors.email?.message}</div>
+              </div>
+              <div className='mt-2'>
+                <input
+                  type='password'
+                  className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 focus:shadow-sm rounded-sm'
+                  placeholder='Password'
+                  {...register('password', rules.password)}
+                />
+                <div className='pl-2 mt-1 text-red-600 min-h-[1.25rem] text-sm'>{errors.password?.message}</div>
+              </div>
+              <div className='mt-2'>
+                <input
+                  type='password'
+                  className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 focus:shadow-sm rounded-sm'
+                  placeholder='Confirm Password'
+                  {...register('confirm_password', rules.confirm_password)}
+                />
+                <div className='pl-2 mt-1 text-red-600 min-h-[1.25rem] text-sm'>{errors.confirm_password?.message}</div>
+              </div>
               <div className='mt-3'>
                 <button className='w-full text-center py-4 px-2 uppercase bg-red-500 text-white text-sm hover:bg-red-600'>
                   Đăng ký
