@@ -39,6 +39,7 @@ export default function Register() {
                   type='password'
                   className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 focus:shadow-sm rounded-sm'
                   placeholder='Password'
+                  autoComplete='on'
                   {...register('password', rules.password)}
                 />
                 <div className='pl-2 mt-1 text-red-600 min-h-[1.25rem] text-sm'>{errors.password?.message}</div>
@@ -48,6 +49,7 @@ export default function Register() {
                   type='password'
                   className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 focus:shadow-sm rounded-sm'
                   placeholder='Confirm Password'
+                  autoComplete='on'
                   {...register('confirm_password', rules.confirm_password)}
                 />
                 <div className='pl-2 mt-1 text-red-600 min-h-[1.25rem] text-sm'>{errors.confirm_password?.message}</div>
