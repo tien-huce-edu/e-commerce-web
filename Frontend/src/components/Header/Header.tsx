@@ -1,12 +1,22 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
+import Popover from '../Popover'
 
 export default function Header() {
   return (
     <div className='bg-[linear-gradient(-180deg,#f53d2d,#f63)] pb-5 pt-2 text-white'>
       <div className='container'>
         <div className='flex justify-end'>
-          <div className='flex items-center py-1 hover:text-gray-300 cursor-pointer'>
+          <Popover
+            className='flex items-center py-1 px-1 hover:text-gray-300 cursor-pointer'
+            renderPopover={
+              <div className='bg-white relative shadow-md rounded-sm border border-white'>
+                <div className='flex flex-col py-2 px-3'>
+                  <button className='py-2 px-3 hover:text-orange'>Tiếng Việt</button>
+                  <button className='py-2 px-3 hover:text-orange'>Tiếng Anh</button>
+                </div>
+              </div>
+            }
+          >
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -32,8 +42,27 @@ export default function Header() {
             >
               <path strokeLinecap='round' strokeLinejoin='round' d='m19.5 8.25-7.5 7.5-7.5-7.5' />
             </svg>
-          </div>
-          <div className='flex items-center py-1 hover:text-gray-300 cursor-pointer ml-6'>
+          </Popover>
+
+          <Popover
+            className='flex items-center py-1 px-1 hover:text-gray-300 cursor-pointer ml-6'
+            renderPopover={
+              <div>
+                <Link to='/' className='block py-2 px-3 hover:bg-slate-100 bg-white hover:text-cyan-500'>
+                  Tài khoản của bạn
+                </Link>
+                <Link to='/' className='block py-2 px-3 hover:bg-slate-100 bg-white hover:text-cyan-500'>
+                  Đơn mua
+                </Link>
+                <Link to='/' className='block py-2 px-3 hover:bg-slate-100 bg-white hover:text-cyan-500'>
+                  Đăng xuất
+                </Link>
+                <Link to='/' className='block py-2 px-3 hover:bg-slate-100 bg-white hover:text-cyan-500'>
+                  Tài khoản của bạn
+                </Link>
+              </div>
+            }
+          >
             <div className='w-6 h-6 mr-2 flex-shrink-0'>
               <img
                 src='https://down-vn.img.susercontent.com/file/10f95e5accc5fade44955aec09bc74ea_tn'
@@ -41,10 +70,20 @@ export default function Header() {
                 className='w-full h-full object-cover rounded-full'
               />
             </div>
-            <span className='mx-1'>Tiếng Việt</span>
-          </div>
+            <span className='mx-1'>Username</span>
+          </Popover>
+          {/* <div className='flex items-center py-1 hover:text-gray-300 cursor-pointer ml-6'>
+            <div className='w-6 h-6 mr-2 flex-shrink-0'>
+              <img
+                src='https://down-vn.img.susercontent.com/file/10f95e5accc5fade44955aec09bc74ea_tn'
+                alt='avatar'
+                className='w-full h-full object-cover rounded-full'
+              />
+            </div>
+            <span className='mx-1'>Username</span>
+          </div> */}
         </div>
-        <div className='grid grid-cols-12 gap-4'>
+        <div className='grid grid-cols-12 gap-4 mt-5'>
           <Link to='/' className='col-span-2'>
             <svg viewBox='0 0 192 65' className='h-8 lg:h-11 fill-white'>
               <g fillRule='evenodd'>
