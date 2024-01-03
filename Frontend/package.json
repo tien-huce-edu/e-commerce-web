@@ -13,11 +13,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.26.4",
+    "@floating-ui/react-dom-interactions": "^0.13.3",
     "@hookform/resolvers": "^3.3.2",
     "@tanstack/react-query": "^5.14.6",
     "@tanstack/react-query-devtools": "^5.14.6",
     "@types/lodash": "^4.14.202",
     "axios": "^1.6.2",
+    "framer-motion": "^10.17.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
